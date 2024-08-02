@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import bannerIcon from "../../assets/img/dashboardIcon.png";
+import { useState, useEffect, useRef } from "react";import bannerIcon from "../../assets/img/dashboardIcon.png";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import EditLocationAltOutlinedIcon from "@mui/icons-material/EditLocationAltOutlined";
 import Tooltip from "@mui/joy/Tooltip";
@@ -8,12 +7,27 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 function Banner() {
 	const [currentTime, setCurrentTime] = useState(new Date());
 	const [tooltipOpen, setTooltipOpen] = useState(false);
+	const infoIconRef = useRef(null);
 
 	useEffect(() => {
 		const timer = setInterval(() => {
 			setCurrentTime(new Date());
 		}, 1000);
 		return () => clearInterval(timer);
+	}, []);
+
+	useEffect(() => {
+		const handleOutsideClick = (event) => {
+			if (infoIconRef.current && !infoIconRef.current.contains(event.target)) {
+				setTooltipOpen(false);
+			}
+		};
+
+		document.addEventListener("touchstart", handleOutsideClick);
+
+		return () => {
+			document.removeEventListener("touchstart", handleOutsideClick);
+		};
 	}, []);
 
 	const formatDateTime = (date) => {
@@ -63,9 +77,8 @@ function Banner() {
 						title={
 							<div className="text-xs">
 								{" "}
-								The system provide default location,
-								<br /> you can change it by clicking <EditLocationAltOutlinedIcon sx={{ fontSize: "15px" }} />
-								edit.
+								The system provides a default location,
+								<br /> you can change it by clicking <EditLocationAltOutlinedIcon sx={{ fontSize: "15px" }} /> edit.
 								<br />
 								<br />
 								<span className="underline text-xs">Choices are only around Lakewood.</span>
@@ -75,6 +88,7 @@ function Banner() {
 						open={tooltipOpen}
 						onClose={() => setTooltipOpen(false)}>
 						<p
+							ref={infoIconRef}
 							className="text-brown-700"
 							onClick={handleTooltipClick}>
 							<InfoOutlinedIcon />
