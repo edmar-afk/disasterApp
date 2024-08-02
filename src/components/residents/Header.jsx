@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Header() {
 	return (
 		<>
-			<div className="flex flex-row justify-between items-center mx-4 pt-12">
+			<div className="flex flex-row justify-between items-center mx-4 pt-6">
 				<img
 					src={logo}
 					className="w-8 border-2 rounded-full border-purple-100"
