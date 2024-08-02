@@ -1,8 +1,15 @@
-/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";import Button from "@mui/material/Button";import TextField from "@mui/material/TextField";import { Link, useNavigate, useLocation } from "react-router-dom";import Paper from "@mui/material/Paper";import Grid from "@mui/material/Grid";import disasterIcon from "../assets/img/icon.png";import { motion } from "framer-motion";
+/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import disasterIcon from "../assets/img/icon.png";
+import { motion } from "framer-motion";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Swal from "sweetalert2";
 import api from "../assets/api";
-
+import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -19,9 +26,9 @@ const Login = () => {
 				showConfirmButton: false,
 				timer: 1500,
 				customClass: {
-					title: "text-lg font-semibold text-xs", // Customize title style
-					icon: "p-2 rounded-full w-16 h-14", // Customize icon style
-					popup: "bg-gray-100 rounded-lg shadow-md max-w-xs max-h-56", // Customize popup container size
+					title: "text-lg font-semibold text-xs",
+					icon: "p-2 rounded-full w-16 h-14",
+					popup: "bg-gray-100 rounded-lg shadow-md max-w-xs max-h-56",
 				},
 			});
 		}
@@ -31,18 +38,6 @@ const Login = () => {
 		e.preventDefault();
 		setLoading(true);
 
-		const swalInstance = Swal.fire({
-			title: "Logging In...",
-			text: "Checking for right credentials.",
-			icon: "info",
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			allowEscapeKey: false,
-			didOpen: () => {
-				Swal.showLoading();
-			},
-		});
-
 		try {
 			const res = await api.post("/api/token/", { username, password });
 
@@ -50,7 +45,6 @@ const Login = () => {
 				localStorage.setItem("ACCESS_TOKEN", res.data.access);
 				localStorage.setItem("REFRESH_TOKEN", res.data.refresh);
 
-				// Fetch user details
 				const userRes = await api.get("/api/user/", {
 					headers: {
 						Authorization: `Bearer ${res.data.access}`,
@@ -59,17 +53,8 @@ const Login = () => {
 
 				localStorage.setItem("userData", JSON.stringify(userRes.data));
 
-				swalInstance.close();
-				Swal.fire({
-					title: "Success!",
-					text: "You have logged in successfully.",
-					icon: "success",
-					confirmButtonText: "OK",
-				}).then(() => {
-					navigate("/home");
-				});
+				navigate("/home");
 			} else {
-				swalInstance.close();
 				Swal.fire({
 					title: "Error!",
 					text: "Login failed.",
@@ -78,7 +63,6 @@ const Login = () => {
 				});
 			}
 		} catch (error) {
-			swalInstance.close();
 			Swal.fire({
 				title: "Error!",
 				text: error.response?.data?.detail || "Login failed",
@@ -175,9 +159,16 @@ const Login = () => {
 								fullWidth
 								variant="contained"
 								color="primary"
-								className="mt-8 mb-2"
+								className="mt-8 mb-2 flex items-center justify-center"
 								disabled={loading}>
-								{loading ? "Signing In..." : "Sign In"}
+								{loading ? (
+									<>
+										<HourglassBottomIcon className="animate-spin h-5 w-5 mr-3 text-white" />
+										Signing In...
+									</>
+								) : (
+									"Sign In"
+								)}
 							</Button>
 						</motion.div>
 						<motion.div
