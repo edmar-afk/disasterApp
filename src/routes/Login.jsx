@@ -164,10 +164,10 @@ const Login = () => {
 									{loading ? (
 										<>
 											<HourglassBottomIcon className="animate-spin h-5 w-5 mr-3 text-white" />
-											Signing In...
+											Logging in...
 										</>
 									) : (
-										"Sign In"
+										"Login"
 									)}
 								</Button>
 							</motion.div>

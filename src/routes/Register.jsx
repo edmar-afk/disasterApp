@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import api from "../assets/api"; // Ensure axios is correctly configured in this file
+import { useState, useEffect } from "react";import { Link, useNavigate } from "react-router-dom";
+import api from "../assets/api";
 import disasterIcon from "../assets/img/icon.png";
 import Swal from "sweetalert2";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
+import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 function Register() {
 	const [firstName, setFirstName] = useState("");
 	const [mobileNum, setMobileNum] = useState("");
@@ -12,6 +11,7 @@ function Register() {
 	const [password2, setPassword2] = useState("");
 	const [error, setError] = useState("");
 	const [canSubmit, setCanSubmit] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
 	// Function to check if passwords match
@@ -60,19 +60,8 @@ function Register() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
+		setLoading(true);
 		// Show SweetAlert2 loading spinner
-		const swalInstance = Swal.fire({
-			title: "Registering...",
-			text: "Please wait while we process your registration.",
-			icon: "info",
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			allowEscapeKey: false,
-			didOpen: () => {
-				Swal.showLoading();
-			},
-		});
 
 		try {
 			const res = await api.post("/api/register/", {
@@ -85,11 +74,10 @@ function Register() {
 
 			if (res.status === 201) {
 				// Close the SweetAlert2 loading spinner
-				swalInstance.close();
+
 				// Navigate to login page with state
 				navigate("/login", { state: { successMessage: "You have been registered successfully." } });
 			} else {
-				swalInstance.close();
 				Swal.fire({
 					title: "Error!",
 					text: "Registration failed.",
@@ -98,7 +86,6 @@ function Register() {
 				});
 			}
 		} catch (error) {
-			swalInstance.close();
 			let errorMessage = "Registration failed";
 
 			if (error.response) {
@@ -116,6 +103,8 @@ function Register() {
 				icon: "error",
 				confirmButtonText: "OK",
 			});
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -208,11 +197,18 @@ function Register() {
 							<div className="flex flex-col items-center justify-between mt-4">
 								<button
 									type="submit"
-									disabled={!canSubmit}
+									disabled={!canSubmit || loading}
 									className={`px-6 py-2 w-full mb-4 text-white font-semibold rounded-md transition-colors ${
 										canSubmit ? "bg-blue-600 hover:bg-blue-700" : "bg-red-600 cursor-not-allowed"
 									}`}>
-									Register
+									{loading ? (
+										<>
+											<HourglassBottomIcon className="animate-spin h-5 w-5 mr-3 text-white" />
+											Validating...
+										</>
+									) : (
+										"Register"
+									)}
 								</button>
 								<p>
 									Already have an account?
