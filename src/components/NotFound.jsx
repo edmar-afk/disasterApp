@@ -10,7 +10,7 @@ function NotFound() {
 					alt=""
 				/>
 				<p className="text-7xl text-white">404</p>
-				<p className="text-xl text-white mt-4">The page you are looking for doesn't exists.</p>
+				<p className="text-xl text-white mt-4">The page you are looking <br /> for doesn't exists.</p>
 				<br />
 				<Link
 					to={"/"}

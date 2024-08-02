@@ -6,7 +6,7 @@ import LoginIcon from "@mui/icons-material/Login";
 function Homepage() {
 	return (
 		<>
-			<div className="relative flex w-full flex-col items-center pt-8 bg-white h-screen">
+			<div className="relative flex w-full flex-col items-center pt-24 bg-white h-screen">
 				<img
 					src={logoIcon}
 					alt=""
@@ -30,7 +30,7 @@ function Homepage() {
 						initial={{ x: -1000 }}
 						animate={{ x: 0 }}
 						transition={{ type: "spring", stiffness: 50, damping: 15 }}>
-						<Link to={"/register"}>
+						<Link to={"/ss"}>
 							<HowToRegIcon /> Register
 						</Link>
 					</motion.div>
