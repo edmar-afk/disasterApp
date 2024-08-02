@@ -6,7 +6,7 @@ import Register from "./routes/Register";
 import NotFound from "./components/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Homepage from "./routes/Homepage";
-
+import ResidentDashboard from "./routes/ResidentDashboard";
 
 function Logout() {
 	localStorage.clear();
@@ -31,6 +31,10 @@ function App() {
 						<Route
 							path="/login"
 							element={<Login />}
+						/>
+						<Route
+							path="/resident-dashboard"
+							element={<ResidentDashboard />}
 						/>
 						<Route
 							path="*"

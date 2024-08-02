@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
+/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Paper from "@mui/material/Paper";
@@ -53,7 +52,7 @@ const Login = () => {
 
 				localStorage.setItem("userData", JSON.stringify(userRes.data));
 
-				navigate("/home");
+				navigate("/resident-dashboard");
 			} else {
 				Swal.fire({
 					title: "Error!",
