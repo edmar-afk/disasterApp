@@ -1,5 +1,4 @@
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";import logoIcon from "../assets/img/icon.png";
-import { motion } from "framer-motion";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";import logoIcon from "../assets/img/icon.png";import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import LoginIcon from "@mui/icons-material/Login";
@@ -26,21 +25,21 @@ function Homepage() {
 				</div>
 				<div className="mt-12 flex flex-row justify-evenly">
 					<motion.div
-						className="flex flex-row items-center shadow-2xl justify-center mx-3 rounded-lg text-white px-10 py-3 bg-brown-500"
+						className="flex text-xs flex-row items-center shadow-2xl justify-center mx-3 rounded-lg text-white px-10 py-3 bg-brown-500"
 						initial={{ x: -1000 }}
 						animate={{ x: 0 }}
 						transition={{ type: "spring", stiffness: 50, damping: 15 }}>
 						<Link to={"/ss"}>
-							<HowToRegIcon /> Register
+							<HowToRegIcon fontSize="small" /> Register
 						</Link>
 					</motion.div>
 					<motion.div
-						className="flex flex-row items-center shadow-2xl justify-center mx-3 rounded-lg border border-brown-500 px-10 py-3 text-brown-500"
+						className="flex text-xs flex-row items-center shadow-2xl justify-center mx-3 rounded-lg border border-brown-500 px-10 py-3 text-brown-500"
 						initial={{ x: 1000 }}
 						animate={{ x: 0 }}
 						transition={{ type: "spring", stiffness: 50, damping: 15 }}>
 						<Link to={"/login"}>
-							<LoginIcon /> Login
+							<LoginIcon fontSize="small" /> Login
 						</Link>
 					</motion.div>
 				</div>
