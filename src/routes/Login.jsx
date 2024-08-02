@@ -1,4 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";import Button from "@mui/material/Button";
+/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Paper from "@mui/material/Paper";
@@ -74,123 +75,125 @@ const Login = () => {
 	};
 
 	return (
-		<div className="h-screen bg-white">
+		<>
 			<Link
 				to="/"
 				className="p-3 flex items-center fixed top-14">
 				<ArrowBackIcon className="text-gray-800" />
 			</Link>
-			<div className="flex flex-col items-center justify-center pt-12 mb-2">
-				<img
-					src={disasterIcon}
-					className="w-40"
-					alt=""
-				/>
-				<motion.p
-					initial={{ scale: 0 }}
-					animate={{ scale: 1 }}
-					transition={{ type: "spring", stiffness: 160, damping: 30 }}
-					className="text-gray-800 font-bold text-4xl">
-					Login
-				</motion.p>
-			</div>
-			<Grid
-				container
-				component="main"
-				className="flex items-center justify-center">
+			<div className="h-screen bg-white pt-12">
+				<div className="flex flex-col items-center justify-center mb-8 pt-24">
+					<img
+						src={disasterIcon}
+						className="w-40"
+						alt=""
+					/>
+					<motion.p
+						initial={{ scale: 0 }}
+						animate={{ scale: 1 }}
+						transition={{ type: "spring", stiffness: 160, damping: 30 }}
+						className="text-gray-800 font-bold text-4xl">
+						Login
+					</motion.p>
+				</div>
 				<Grid
-					item
-					xs={12}
-					sm={8}
-					md={5}
-					component={Paper}
-					elevation={0}
-					square
-					className="flex flex-col items-center justify-center p-8 bg-transparent">
-					<form
-						className="w-full mt-1 bg-transparent"
-						onSubmit={handleSubmit}
-						noValidate>
-						<motion.div
-							initial={{ scale: 0 }}
-							animate={{ scale: 1 }}
-							transition={{ type: "spring", stiffness: 160, damping: 30 }}>
-							<TextField
-								onChange={(e) => setUsername(e.target.value)}
-								variant="outlined"
-								margin="normal"
-								required
-								fullWidth
-								className="mb-4 bg-transparent"
-								name="username"
-								label="Your Mobile Number"
-								type="number"
-								id="email"
-								autoComplete="off"
-							/>
-						</motion.div>
-						<motion.div
-							initial={{ scale: 0 }}
-							animate={{ scale: 1 }}
-							transition={{ type: "spring", stiffness: 160, damping: 30 }}>
-							<TextField
-								onChange={(e) => setPassword(e.target.value)}
-								variant="outlined"
-								margin="normal"
-								required
-								fullWidth
-								className="mb-4 bg-transparent"
-								name="password"
-								label="Password"
-								type="password"
-								id="password"
-								autoComplete="current-password"
-							/>
-						</motion.div>
-						<br />
-						<motion.div
-							initial={{ scale: 0 }}
-							animate={{ scale: 1 }}
-							transition={{ type: "spring", stiffness: 160, damping: 30 }}>
-							<Button
-								type="submit"
-								fullWidth
-								variant="contained"
-								color="primary"
-								className="mt-8 mb-2 flex items-center justify-center"
-								disabled={loading}>
-								{loading ? (
-									<>
-										<HourglassBottomIcon className="animate-spin h-5 w-5 mr-3 text-white" />
-										Signing In...
-									</>
-								) : (
-									"Sign In"
-								)}
-							</Button>
-						</motion.div>
-						<motion.div
-							initial={{ scale: 0 }}
-							animate={{ scale: 1 }}
-							transition={{ type: "spring", stiffness: 160, damping: 30 }}>
-							<Grid
-								container
-								className="mt-2">
-								Don't Have an account?
-								<Grid item>
-									<Link
-										to="/register"
-										variant="body2"
-										className="ml-0.5 text-blue-400 font-bold">
-										Register here
-									</Link>
+					container
+					component="main"
+					className="flex items-center justify-center">
+					<Grid
+						item
+						xs={12}
+						sm={8}
+						md={5}
+						component={Paper}
+						elevation={0}
+						square
+						className="flex flex-col items-center justify-center p-8 bg-transparent">
+						<form
+							className="w-full mt-1 bg-transparent"
+							onSubmit={handleSubmit}
+							noValidate>
+							<motion.div
+								initial={{ scale: 0 }}
+								animate={{ scale: 1 }}
+								transition={{ type: "spring", stiffness: 160, damping: 30 }}>
+								<TextField
+									onChange={(e) => setUsername(e.target.value)}
+									variant="outlined"
+									margin="normal"
+									required
+									fullWidth
+									className="mb-4 bg-transparent"
+									name="username"
+									label="Your Mobile Number"
+									type="number"
+									id="email"
+									autoComplete="off"
+								/>
+							</motion.div>
+							<motion.div
+								initial={{ scale: 0 }}
+								animate={{ scale: 1 }}
+								transition={{ type: "spring", stiffness: 160, damping: 30 }}>
+								<TextField
+									onChange={(e) => setPassword(e.target.value)}
+									variant="outlined"
+									margin="normal"
+									required
+									fullWidth
+									className="mb-4 bg-transparent"
+									name="password"
+									label="Password"
+									type="password"
+									id="password"
+									autoComplete="current-password"
+								/>
+							</motion.div>
+							<br />
+							<motion.div
+								initial={{ scale: 0 }}
+								animate={{ scale: 1 }}
+								transition={{ type: "spring", stiffness: 160, damping: 30 }}>
+								<Button
+									type="submit"
+									fullWidth
+									variant="contained"
+									color="primary"
+									className="mt-8 mb-2 flex items-center justify-center"
+									disabled={loading}>
+									{loading ? (
+										<>
+											<HourglassBottomIcon className="animate-spin h-5 w-5 mr-3 text-white" />
+											Signing In...
+										</>
+									) : (
+										"Sign In"
+									)}
+								</Button>
+							</motion.div>
+							<motion.div
+								initial={{ scale: 0 }}
+								animate={{ scale: 1 }}
+								transition={{ type: "spring", stiffness: 160, damping: 30 }}>
+								<Grid
+									container
+									className="mt-2">
+									Don't Have an account?
+									<Grid item>
+										<Link
+											to="/register"
+											variant="body2"
+											className="ml-0.5 text-blue-400 font-bold">
+											Register here
+										</Link>
+									</Grid>
 								</Grid>
-							</Grid>
-						</motion.div>
-					</form>
+							</motion.div>
+						</form>
+					</Grid>
 				</Grid>
-			</Grid>
-		</div>
+			</div>
+		</>
 	);
 };
 
