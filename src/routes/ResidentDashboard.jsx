@@ -4,7 +4,7 @@ import Warning from "../components/residents/Warning";
 function ResidentDashboard() {
 	return (
 		<>
-			<div className="bg-gray-100 h-screen">
+			<div className="bg-gray-100 h-screen pt-12">
 				<Header />
 				<Banner />
 				<Warning />
