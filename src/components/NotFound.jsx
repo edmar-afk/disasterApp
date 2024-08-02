@@ -1,4 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */ import notFoundIcon from "../assets/img/404.png";import { Link } from "react-router-dom";
+/* eslint-disable react/no-unescaped-entities */ import notFoundIcon from "../assets/img/404.png";
+import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 function NotFound() {
 	return (
@@ -14,7 +15,11 @@ function NotFound() {
 				<Link
 					to={"/"}
 					className="text-white flex items-center justify-center bg-blue-700 w-fit mx-auto py-1.5 px-3 rounded-lg shadow-2xl">
-					Back to Home <HomeIcon fontSize="small" className="ml-1"/>
+					Back to Home{" "}
+					<HomeIcon
+						fontSize="small"
+						className="ml-1"
+					/>
 				</Link>
 			</div>
 		</>
