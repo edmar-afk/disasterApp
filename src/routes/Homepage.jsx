@@ -6,7 +6,7 @@ import LoginIcon from "@mui/icons-material/Login";
 function Homepage() {
 	return (
 		<>
-			<div className="relative flex w-full flex-col items-center pt-24 bg-white h-screen">
+			<div className="relative flex w-full flex-col items-center pt-40 bg-white h-screen">
 				<img
 					src={logoIcon}
 					alt=""
