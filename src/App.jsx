@@ -13,10 +13,6 @@ function Logout() {
 	return <Navigate to="/" />;
 }
 
-function RegisterAndLogout() {
-	localStorage.clear();
-	return <Register />;
-}
 
 function App() {
 	return (
@@ -24,14 +20,17 @@ function App() {
 			<NoInterConnection>
 				<BrowserRouter>
 					<Routes>
-						
 						<Route
 							path="/"
 							element={<Homepage />}
 						/>
 						<Route
 							path="/register"
-							element={<RegisterAndLogout />}
+							element={<Register />}
+						/>
+						<Route
+							path="/login"
+							element={<Login />}
 						/>
 						<Route
 							path="*"

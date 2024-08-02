@@ -1,19 +1,31 @@
-/* eslint-disable react/no-unescaped-entities */ import { useState } from "react";import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { Link, useNavigate } from "react-router-dom";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import disasterIcon from "../assets/img/icon.png";
-import { motion } from "framer-motion";
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
+/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";import Button from "@mui/material/Button";import TextField from "@mui/material/TextField";import { Link, useNavigate, useLocation } from "react-router-dom";import Paper from "@mui/material/Paper";import Grid from "@mui/material/Grid";import disasterIcon from "../assets/img/icon.png";import { motion } from "framer-motion";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Swal from "sweetalert2";
-import api from '../assets/api'
+import api from "../assets/api";
 
 const Login = () => {
-	const [email, setEmail] = useState("");
+	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	useEffect(() => {
+		if (location.state && location.state.successMessage) {
+			Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: location.state.successMessage,
+				showConfirmButton: false,
+				timer: 1500,
+				customClass: {
+					title: "text-lg font-semibold text-xs", // Customize title style
+					icon: "p-2 rounded-full w-16 h-14", // Customize icon style
+					popup: "bg-gray-100 rounded-lg shadow-md max-w-xs max-h-56", // Customize popup container size
+				},
+			});
+		}
+	}, [location]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -32,7 +44,7 @@ const Login = () => {
 		});
 
 		try {
-			const res = await api.post("/api/token/", { email, password });
+			const res = await api.post("/api/token/", { username, password });
 
 			if (res.status === 200) {
 				localStorage.setItem("ACCESS_TOKEN", res.data.access);
@@ -83,14 +95,11 @@ const Login = () => {
 			<Link
 				to="/"
 				className="p-3 flex items-center fixed">
-				<ArrowBackIosOutlinedIcon className="text-gray-800" />
-				<p className="text-gray-800 text-sm -mt-1 font-bold">Back</p>
+				<ArrowBackIcon className="text-gray-800" />
+				<p className="text-gray-800 text-sm -mt-1 font-bold"></p>
 			</Link>
 			<div className="flex flex-col items-center justify-center pt-12 mb-2">
-				<motion.img
-					initial={{ scale: 0 }}
-					animate={{ rotate: 360, scale: 1 }}
-					transition={{ type: "spring", stiffness: 160, damping: 30 }}
+				<img
 					src={disasterIcon}
 					className="w-40"
 					alt=""
@@ -121,27 +130,27 @@ const Login = () => {
 						onSubmit={handleSubmit}
 						noValidate>
 						<motion.div
-							initial={{ opacity: 0, y: 50 }}
-							animate={{ opacity: 1, y: 0 }}
+							initial={{ scale: 0 }}
+							animate={{ scale: 1 }}
 							transition={{ type: "spring", stiffness: 160, damping: 30 }}>
 							<TextField
-								onChange={(e) => setEmail(e.target.value)}
+								onChange={(e) => setUsername(e.target.value)}
 								variant="outlined"
 								margin="normal"
 								required
 								fullWidth
 								className="mb-4 bg-transparent"
-								name="email"
-								label="Your Email"
-								type="email"
+								name="username"
+								label="Your Mobile Number"
+								type="number"
 								id="email"
 								autoComplete="off"
 							/>
 						</motion.div>
 						<motion.div
-							initial={{ opacity: 0, y: 50 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ type: "spring", stiffness: 160, damping: 30, delay: 0.1 }}>
+							initial={{ scale: 0 }}
+							animate={{ scale: 1 }}
+							transition={{ type: "spring", stiffness: 160, damping: 30 }}>
 							<TextField
 								onChange={(e) => setPassword(e.target.value)}
 								variant="outlined"
@@ -158,9 +167,9 @@ const Login = () => {
 						</motion.div>
 						<br />
 						<motion.div
-							initial={{ opacity: 0, y: 50 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ type: "spring", stiffness: 160, damping: 30, delay: 0.2 }}>
+							initial={{ scale: 0 }}
+							animate={{ scale: 1 }}
+							transition={{ type: "spring", stiffness: 160, damping: 30 }}>
 							<Button
 								type="submit"
 								fullWidth
@@ -172,9 +181,9 @@ const Login = () => {
 							</Button>
 						</motion.div>
 						<motion.div
-							initial={{ opacity: 0, y: 50 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ type: "spring", stiffness: 160, damping: 30, delay: 0.4 }}>
+							initial={{ scale: 0 }}
+							animate={{ scale: 1 }}
+							transition={{ type: "spring", stiffness: 160, damping: 30 }}>
 							<Grid
 								container
 								className="mt-2">
@@ -184,7 +193,7 @@ const Login = () => {
 										to="/register"
 										variant="body2"
 										className="ml-0.5 text-blue-400 font-bold">
-										Sign Up
+										Register here
 									</Link>
 								</Grid>
 							</Grid>

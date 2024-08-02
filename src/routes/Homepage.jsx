@@ -12,7 +12,7 @@ function Homepage() {
 					className="w-44"
 				/>
 				<h1 className="mt-8 max-w-sm bg-gradient-to-br from-gray-500 via-brown-500 to-gray-500 bg-clip-text text-center text-4xl font-extrabold text-transparent sm:max-w-4xl sm:text-6xl">
-					Disaster Risk and Preparedness
+					Disaster Risks and Preparedness
 				</h1>
 
 				<div className="mt-12 text-center">
@@ -29,7 +29,7 @@ function Homepage() {
 						initial={{ x: -1000 }}
 						animate={{ x: 0 }}
 						transition={{ type: "spring", stiffness: 50, damping: 15 }}>
-						<Link to={"/ss"}>
+						<Link to={"/register"}>
 							<HowToRegIcon fontSize="small" /> Register
 						</Link>
 					</motion.div>

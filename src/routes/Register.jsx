@@ -1,20 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps *//* eslint-disable no-unused-vars */ import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faMailBulk } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";import { Link, useNavigate } from "react-router-dom";
 import api from "../assets/api"; // Ensure axios is correctly configured in this file
 import disasterIcon from "../assets/img/icon.png";
 import Swal from "sweetalert2";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function Register() {
-	const [username, setUsername] = useState("");
 	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
 	const [mobileNum, setMobileNum] = useState("");
 	const [password, setPassword] = useState("");
 	const [password2, setPassword2] = useState("");
-	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 	const [canSubmit, setCanSubmit] = useState(false);
 	const navigate = useNavigate();
@@ -24,37 +18,44 @@ function Register() {
 		if (password && password2 && password !== password2) {
 			setError("Passwords do not match");
 		} else {
-			setError("");
+			setError((prevError) => (prevError === "Passwords do not match" ? "" : prevError));
 		}
 	};
 
-	// Update password and check if they match
+	// Function to validate mobile number
+	const validateMobileNum = (value) => {
+		const regex = /^09\d{9}$/;
+		if (!regex.test(value)) {
+			setError("Please enter an 11-digit number starting with '09'.");
+		} else {
+			setError((prevError) => (prevError !== "Please enter an 11-digit number starting with '09'." ? prevError : ""));
+		}
+	};
+
+	const handleMobileNumChange = (e) => {
+		const value = e.target.value;
+		setMobileNum(value);
+		validateMobileNum(value);
+	};
+
 	const handlePasswordChange = (e) => {
 		setPassword(e.target.value);
 	};
 
-	// Update re-type password and check if they match
 	const handlePassword2Change = (e) => {
 		setPassword2(e.target.value);
 	};
 
-	// Use useEffect to check if passwords match and form validity
 	useEffect(() => {
 		checkPasswordsMatch();
 
 		// Check if all required fields are filled
-		if (username && firstName && lastName && email && mobileNum && password && password2 && !error) {
+		if (firstName && mobileNum && password && password2 && !error) {
 			setCanSubmit(true);
 		} else {
 			setCanSubmit(false);
 		}
-	}, [username, firstName, lastName, email, mobileNum, password, password2, error]);
-
-	const handleUsernameChange = (e) => {
-		const value = e.target.value.toLowerCase(); // Convert to lowercase
-		const filteredValue = value.replace(/[^a-z0-9]/g, ""); // Remove all characters that are not lowercase letters or numbers
-		setUsername(filteredValue);
-	};
+	}, [firstName, mobileNum, password, password2, error]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -75,10 +76,8 @@ function Register() {
 		try {
 			const res = await api.post("/api/register/", {
 				first_name: firstName,
-				last_name: lastName,
-				username: username,
+				username: mobileNum,
 				mobile_num: mobileNum,
-				email: email,
 				password: password,
 				password2: password2,
 			});
@@ -86,14 +85,8 @@ function Register() {
 			if (res.status === 201) {
 				// Close the SweetAlert2 loading spinner
 				swalInstance.close();
-				Swal.fire({
-					title: "Success!",
-					text: "You have been registered successfully.",
-					icon: "success",
-					confirmButtonText: "OK",
-				}).then(() => {
-					navigate("/");
-				});
+				// Navigate to login page with state
+				navigate("/login", { state: { successMessage: "You have been registered successfully." } });
 			} else {
 				swalInstance.close();
 				Swal.fire({
@@ -127,26 +120,25 @@ function Register() {
 
 	return (
 		<>
-			<div></div>
+			<Link
+				to="/"
+				className="p-3 flex items-center fixed">
+				<ArrowBackIcon className="text-gray-800" />
+				<p className="text-gray-800 text-sm -mt-1 font-bold"></p>
+			</Link>
 			<div className="font-[sans-serif]">
-				<div className="grid lg:grid-cols-2 gap-4 max-lg:gap-12 bg-gradient-to-r from-blue-500 to-blue-700 px-8 py-12 h-[320px]">
-					<div>
-						<a href="">
-							<img
-								src={disasterIcon}
-								alt="logo"
-								className="w-40"
-							/>
-						</a>
-						<div className="max-w-lg mt-12 max-lg:hidden">
-							<p className="text-sm mt-4 text-white">Welcome to Car Rentals! Please sign in to access our services</p>
-						</div>
-					</div>
-
-					<div className="bg-white rounded-xl sm:px-6 px-4 py-8 max-w-md w-full h-max shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] max-lg:mx-auto">
+				<div className="bg-white h-screen">
+					<div className="bg-white rounded-xl sm:px-6 px-4 py-8 max-w-md w-full h-max max-lg:mx-auto">
 						<form onSubmit={handleSubmit}>
-							<div className="mb-8">
-								<h3 className="text-3xl font-extrabold text-gray-800">Register</h3>
+							<div className="mb-8 pt-24">
+								<div className="flex flex-col items-center justify-center pt-12 mb-2">
+									<img
+										src={disasterIcon}
+										className="w-40"
+										alt=""
+									/>
+									<p className="text-gray-800 font-bold text-4xl">Sign In</p>
+								</div>
 							</div>
 
 							<div>
@@ -157,111 +149,32 @@ function Register() {
 										onChange={(e) => setFirstName(e.target.value)}
 										required
 										className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
-										placeholder="First Name"
-									/>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="#bbb"
-										stroke="#bbb"
-										className="w-[18px] h-[18px] absolute right-4"
-										viewBox="0 0 24 24">
-										<circle
-											cx="10"
-											cy="7"
-											r="6"
-											data-original="#000000"></circle>
-										<path
-											d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-											data-original="#000000"></path>
-									</svg>
-								</div>
-							</div>
-							<div className="mt-2">
-								<div className="relative flex items-center">
-									<input
-										type="text"
-										value={lastName}
-										onChange={(e) => setLastName(e.target.value)}
-										required
-										className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
-										placeholder="Last Name"
-									/>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="#bbb"
-										stroke="#bbb"
-										className="w-[18px] h-[18px] absolute right-4"
-										viewBox="0 0 24 24">
-										<circle
-											cx="10"
-											cy="7"
-											r="6"
-											data-original="#000000"></circle>
-										<path
-											d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-											data-original="#000000"></path>
-									</svg>
-								</div>
-							</div>
-							<div className="mt-2">
-								<div className="relative flex items-center">
-									<input
-										type="text"
-										value={username}
-										onChange={handleUsernameChange}
-										required
-										className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
-										placeholder="Username"
-									/>
-									<FontAwesomeIcon
-										icon={faMailBulk}
-										className="w-[18px] h-[18px] absolute right-4 text-gray-400"
+										placeholder="Full Name"
 									/>
 								</div>
 							</div>
+
 							<div className="mt-2">
-								<div className="relative flex items-center">
-									<input
-										type="text"
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-										required
-										className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
-										placeholder="Email"
-									/>
-									<FontAwesomeIcon
-										icon={faMailBulk}
-										className="w-[18px] h-[18px] absolute right-4 text-gray-400"
-									/>
-								</div>
-							</div>
-							<div className="mt-2">
-								<div className="relative flex items-center">
+								<div className="relative flex flex-col items-center">
 									<input
 										type="text"
 										value={mobileNum}
-										onChange={(e) => setMobileNum(e.target.value)}
+										onChange={handleMobileNumChange}
 										required
-										className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
+										className={`w-full text-sm text-gray-800 border px-4 py-3 rounded-md outline-blue-600 ${
+											error.includes("Please enter an 11-digit number starting with '09'.")
+												? "border-red-500"
+												: "border-gray-300"
+										}`}
 										placeholder="Mobile Number"
+										maxLength="11"
 									/>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="#bbb"
-										stroke="#bbb"
-										className="w-[18px] h-[18px] absolute right-4"
-										viewBox="0 0 24 24">
-										<circle
-											cx="10"
-											cy="7"
-											r="6"
-											data-original="#000000"></circle>
-										<path
-											d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-											data-original="#000000"></path>
-									</svg>
+									{error && error.includes("Please enter an 11-digit number starting with '09'.") && (
+										<p className="text-red-500 text-sm mt-2">{error}</p>
+									)}
 								</div>
 							</div>
+
 							<div className="mt-2">
 								<div className="relative flex items-center">
 									<input
@@ -272,12 +185,9 @@ function Register() {
 										className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
 										placeholder="Password"
 									/>
-									<FontAwesomeIcon
-										icon={faLock}
-										className="w-[18px] h-[18px] absolute right-4 text-gray-400"
-									/>
 								</div>
 							</div>
+
 							<div className="mt-2">
 								<div className="relative flex items-center">
 									<input
@@ -288,13 +198,13 @@ function Register() {
 										className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
 										placeholder="Confirm Password"
 									/>
-									<FontAwesomeIcon
-										icon={faLock}
-										className="w-[18px] h-[18px] absolute right-4 text-gray-400"
-									/>
 								</div>
 							</div>
-							{error && <p className="text-red-500 mt-2">{error}</p>}
+
+							{error && !error.includes("Please enter an 11-digit number starting with '09'.") && (
+								<p className="text-red-500 mt-2 text-xs">{error}</p>
+							)}
+
 							<div className="flex flex-col items-center justify-between mt-4">
 								<button
 									type="submit"
@@ -307,9 +217,9 @@ function Register() {
 								<p>
 									Already have an account?
 									<Link
-										to="/"
+										to="/login"
 										className="text-blue-500 hover:underline ml-2">
-										Sign In
+										Login here
 									</Link>
 								</p>
 							</div>
