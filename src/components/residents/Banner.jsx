@@ -10,13 +10,6 @@ function Banner() {
 	const infoIconRef = useRef(null);
 
 	useEffect(() => {
-		const timer = setInterval(() => {
-			setCurrentTime(new Date());
-		}, 1000);
-		return () => clearInterval(timer);
-	}, []);
-
-	useEffect(() => {
 		const handleOutsideClick = (event) => {
 			if (infoIconRef.current && !infoIconRef.current.contains(event.target)) {
 				setTooltipOpen(false);
