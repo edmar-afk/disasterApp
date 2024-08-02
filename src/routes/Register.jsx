@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../assets/api"; // Ensure axios is correctly configured in this file
 import disasterIcon from "../assets/img/icon.png";
 import Swal from "sweetalert2";
@@ -122,9 +123,8 @@ function Register() {
 		<>
 			<Link
 				to="/"
-				className="p-3 flex items-center fixed">
+				className="p-3 flex items-center fixed top-14">
 				<ArrowBackIcon className="text-gray-800" />
-				<p className="text-gray-800 text-sm -mt-1 font-bold"></p>
 			</Link>
 			<div className="font-[sans-serif]">
 				<div className="bg-white h-screen">
@@ -137,7 +137,7 @@ function Register() {
 										className="w-40"
 										alt=""
 									/>
-									<p className="text-gray-800 font-bold text-4xl">Sign In</p>
+									<p className="text-gray-800 font-bold text-4xl">Register</p>
 								</div>
 							</div>
 

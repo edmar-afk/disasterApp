@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
+/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Paper from "@mui/material/Paper";
@@ -78,9 +77,8 @@ const Login = () => {
 		<div className="h-screen bg-white">
 			<Link
 				to="/"
-				className="p-3 flex items-center fixed">
+				className="p-3 flex items-center fixed top-14">
 				<ArrowBackIcon className="text-gray-800" />
-				<p className="text-gray-800 text-sm -mt-1 font-bold"></p>
 			</Link>
 			<div className="flex flex-col items-center justify-center pt-12 mb-2">
 				<img
@@ -93,7 +91,7 @@ const Login = () => {
 					animate={{ scale: 1 }}
 					transition={{ type: "spring", stiffness: 160, damping: 30 }}
 					className="text-gray-800 font-bold text-4xl">
-					Sign In
+					Login
 				</motion.p>
 			</div>
 			<Grid
