@@ -60,7 +60,7 @@ function Banner() {
 					</div>
 					<div className="flex flex-row items-center ml-2 text-brown-800">
 						<EditLocationAltOutlinedIcon fontSize="small" />
-						<p className="text-xs">Edit</p>
+						<p className="text-xs">Change</p>
 					</div>
 				</div>
 				<div className="flex justify-end">
@@ -71,7 +71,7 @@ function Banner() {
 							<div className="text-xs">
 								{" "}
 								The system provides a default location,
-								<br /> you can change it by clicking <EditLocationAltOutlinedIcon sx={{ fontSize: "15px" }} /> edit.
+								<br /> you can change it by clicking <EditLocationAltOutlinedIcon sx={{ fontSize: "15px" }} /> change.
 								<br />
 								<br />
 								<span className="underline text-xs">Choices are only around Lakewood.</span>
