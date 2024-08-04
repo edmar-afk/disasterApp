@@ -14,7 +14,7 @@ function Footer() {
 					</div>
 					<div className="flex flex-col justify-evenly">
 						<p className="text-left text-xs">
-							Please avoid prank calls. Our officials are working hard to serve you. <span className="font-bold"></span>
+							Please avoid doing prank calls. Our officials are working hard to serve you.
 						</p>
 						<p className="border-2 border-red-50 text-red-50 rounded-full w-fit px-8 py-1.5 mt-2 text-xs flex items-center">
 							<PhonelinkRingIcon

@@ -3,6 +3,7 @@ import Banner from "../components/residents/Banner";
 import Warning from "../components/residents/Warning";
 import ReportCategory from "../components/residents/ReportCategory";
 import Footer from "../components/residents/Footer";
+import Maps from "../components/residents/Maps";
 function ResidentDashboard() {
 	return (
 		<>
@@ -11,7 +12,9 @@ function ResidentDashboard() {
 				<Banner />
 				<Warning />
 				<ReportCategory />
-				<Footer/>
+				<Maps/>
+				<Footer />
+				
 			</div>
 		</>
 	);
