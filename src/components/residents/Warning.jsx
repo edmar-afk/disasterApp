@@ -9,6 +9,7 @@ function Warning() {
 						<p className="font-bold flex items-center">
 							Landslide Warning <span className="text-xs ml-2 text-red-100"> 10 min ago</span>
 						</p>
+						<p className="text-xs mb-1 bg-red-400 w-fit px-2 rounded-full">Barangay Biswangan Area</p>
 						<p className="text-sm">
 							The barangay Officials declares a mass evacuation near purok 4 due to heavy rain and potential landslide.
 						</p>

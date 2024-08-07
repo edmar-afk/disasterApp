@@ -1,4 +1,6 @@
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";import logoIcon from "../assets/img/icon.png";import { motion } from "framer-motion";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";import logoIcon from "../assets/img/logo/logo.png";
+import mddrmo from "../assets/img/logo/MDRRMOlogo.png";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import LoginIcon from "@mui/icons-material/Login";
@@ -6,11 +8,18 @@ function Homepage() {
 	return (
 		<>
 			<div className="relative flex w-full flex-col items-center pt-40 bg-white h-screen">
-				<img
-					src={logoIcon}
-					alt=""
-					className="w-44"
-				/>
+				<div className="flex flex-row">
+					<img
+						src={logoIcon}
+						alt=""
+						className="w-44"
+					/>
+					<img
+						src={mddrmo}
+						alt=""
+						className="w-44"
+					/>
+				</div>
 				<h1 className="mt-8 max-w-sm bg-gradient-to-br from-gray-500 via-brown-500 to-gray-500 bg-clip-text text-center text-4xl font-extrabold text-transparent sm:max-w-4xl sm:text-6xl">
 					Disaster Risks and Preparedness
 				</h1>
