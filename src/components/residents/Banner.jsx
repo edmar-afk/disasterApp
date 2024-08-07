@@ -1,13 +1,17 @@
-import { useState, useEffect, useRef } from "react";import bannerIcon from "../../assets/img/dashboardIcon.png";
+import { useState, useEffect, useRef } from "react";
+import mdrrmo from "../../assets/img/logo/MDRRMOlogo.png";
+import logo from "../../assets/img/logo/logo.png";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import EditLocationAltOutlinedIcon from "@mui/icons-material/EditLocationAltOutlined";
 import Tooltip from "@mui/joy/Tooltip";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-
+import { motion } from "framer-motion";
 function Banner() {
-	const [currentTime, setCurrentTime] = useState(new Date());
+	const [currentTime] = useState(new Date());
 	const [tooltipOpen, setTooltipOpen] = useState(false);
 	const infoIconRef = useRef(null);
+	const images = [mdrrmo, logo];
+	const [currentImage, setCurrentImage] = useState(0);
 
 	useEffect(() => {
 		const handleOutsideClick = (event) => {
@@ -18,8 +22,13 @@ function Banner() {
 
 		document.addEventListener("touchstart", handleOutsideClick);
 
+		const interval = setInterval(() => {
+			setCurrentImage((prevImage) => (prevImage === 0 ? 1 : 0));
+		}, 3000);
+
 		return () => {
 			document.removeEventListener("touchstart", handleOutsideClick);
+			clearInterval(interval);
 		};
 	}, []);
 
@@ -45,10 +54,15 @@ function Banner() {
 					<p className="text-small font-bold text-brown-700">Stay informed about the latest events in Lakewood</p>
 				</div>
 
-				<img
-					src={bannerIcon}
-					className="w-[150px]"
-					alt=""
+				<motion.img
+					key={currentImage} // Ensure a unique key to trigger the animation
+					src={images[currentImage]}
+					className="w-[150px] h-[150px]"
+					alt="Logo"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					transition={{ duration: 1 }} // Adjust the duration as needed
 				/>
 			</div>
 			<p className="mt-4 mb-1 mx-4 text-xs text-brown-300">Current Address</p>
