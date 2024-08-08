@@ -1,5 +1,4 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
+import * as React from "react";import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
@@ -34,7 +33,7 @@ function HazardMap() {
 
 	return (
 		<>
-			<div className="text-center my-4 text-xs text-gray-600">
+			<div className="text-center my-4 text-xs text-gray-600 mt-24">
 				<p>Lakewood Hazard Map</p>
 				<p>Touch the map to post a report</p>
 			</div>
@@ -61,8 +60,9 @@ function HazardMap() {
 					</TransformComponent>
 				</TransformWrapper>
 			</div>
-			<BottomNav />
-
+			<div className="fixed bottom-0 w-full">
+				<BottomNav />
+			</div>
 			<Drawer
 				anchor="top"
 				open={state.top}
