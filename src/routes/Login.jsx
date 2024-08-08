@@ -1,9 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";import Button from "@mui/material/Button";
+/* eslint-disable react/no-unescaped-entities */ import { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import disasterIcon from "../assets/img/icon.png";
+import disasterIcon from "../assets/img/logo/logo.png";
 import { motion } from "framer-motion";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Swal from "sweetalert2";

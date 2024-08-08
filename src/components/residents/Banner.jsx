@@ -6,14 +6,42 @@ import EditLocationAltOutlinedIcon from "@mui/icons-material/EditLocationAltOutl
 import Tooltip from "@mui/joy/Tooltip";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { motion } from "framer-motion";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import api from "../../assets/api";
+
 function Banner() {
+	const userData = JSON.parse(localStorage.getItem("userData"));
+	const userId = userData?.id;
 	const [currentTime] = useState(new Date());
 	const [tooltipOpen, setTooltipOpen] = useState(false);
 	const infoIconRef = useRef(null);
 	const images = [mdrrmo, logo];
 	const [currentImage, setCurrentImage] = useState(0);
+	const [location, setLocation] = useState("");
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState("");
 
 	useEffect(() => {
+		const fetchLocation = async () => {
+			try {
+				if (userId) {
+					// Fetch user's location
+					const locationResponse = await api.get("/api/get-location/", { params: { userId } });
+					setLocation(locationResponse.data.location);
+				} else {
+					setError("User ID not found");
+				}
+			} catch (error) {
+				console.error("Error fetching location:", error);
+				setError("Error fetching location");
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchLocation(); // Initial fetch
+
 		const handleOutsideClick = (event) => {
 			if (infoIconRef.current && !infoIconRef.current.contains(event.target)) {
 				setTooltipOpen(false);
@@ -22,15 +50,20 @@ function Banner() {
 
 		document.addEventListener("touchstart", handleOutsideClick);
 
-		const interval = setInterval(() => {
+		const imageInterval = setInterval(() => {
 			setCurrentImage((prevImage) => (prevImage === 0 ? 1 : 0));
 		}, 3000);
 
+		const locationInterval = setInterval(() => {
+			fetchLocation(); // Refresh location data every 10 seconds
+		}, 50000000);
+
 		return () => {
 			document.removeEventListener("touchstart", handleOutsideClick);
-			clearInterval(interval);
+			clearInterval(imageInterval);
+			clearInterval(locationInterval); // Clear location interval on unmount
 		};
-	}, []);
+	}, [userId]);
 
 	const formatDateTime = (date) => {
 		const options = {
@@ -44,6 +77,31 @@ function Banner() {
 
 	const handleTooltipClick = () => {
 		setTooltipOpen(!tooltipOpen);
+	};
+
+	const [anchorEl, setAnchorEl] = useState(null);
+	const open = Boolean(anchorEl);
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	const handleMenuItemClick = (name) => {
+		// Close the menu
+		handleClose();
+
+		// Send the name and userId to the API
+		api
+			.post("/api/update-location/", { userId, location: name })
+			.then((response) => {
+				console.log("Menu item stored successfully:", response.data);
+			})
+			.catch((error) => {
+				console.error("Error storing menu item:", error);
+			});
 	};
 
 	return (
@@ -70,11 +128,44 @@ function Banner() {
 				<div className="flex flex-row">
 					<div className="bg-brown-400 p-2 rounded-full text-white flex flex-row items-center w-fit px-4">
 						<LocationOnOutlinedIcon fontSize="small" />
-						<p className="text-xs">Baranggay Biswangan</p>
+						<div className="text-xs">
+							{loading ? (
+								<p>Loading...</p>
+							) : (
+								<>
+									{error && <p>{error}</p>}
+									{location ? <p>Barangay {location}</p> : <p>No Location Selected</p>}
+									{/* Other components and elements */}
+								</>
+							)}
+						</div>
+						<Menu
+							id="demo-positioned-menu"
+							aria-labelledby="demo-positioned-button"
+							anchorEl={anchorEl}
+							open={open}
+							onClose={handleClose}
+							anchorOrigin={{
+								vertical: "top",
+								horizontal: "left",
+							}}
+							transformOrigin={{
+								vertical: "top",
+								horizontal: "left",
+							}}>
+							<MenuItem onClick={() => handleMenuItemClick("Biswangan")}>Biswangan</MenuItem>
+							<MenuItem onClick={() => handleMenuItemClick("Gatub")}>Gatub</MenuItem>
+							<MenuItem onClick={() => handleMenuItemClick("Lukuan")}>Lukuan</MenuItem>
+							<MenuItem onClick={() => handleMenuItemClick("Tubod")}>Tubod</MenuItem>
+						</Menu>
 					</div>
 					<div className="flex flex-row items-center ml-2 text-brown-800">
 						<EditLocationAltOutlinedIcon fontSize="small" />
-						<p className="text-xs">Change</p>
+						<p
+							onClick={handleClick}
+							className="text-xs">
+							Change
+						</p>
 					</div>
 				</div>
 				<div className="flex justify-end">

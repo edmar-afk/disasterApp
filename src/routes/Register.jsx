@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";import { Link, useNavigate } from "react-router-dom";
 import api from "../assets/api";
-import disasterIcon from "../assets/img/icon.png";
+import disasterIcon from "../assets/img/logo/MDRRMOlogo.png";
 import Swal from "sweetalert2";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";

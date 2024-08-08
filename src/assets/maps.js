@@ -1,8 +1,9 @@
-import biswangan from "../assets/img/maps/biswangan.jpg";
-import gatub from "../assets/img/maps/gatub.jpg";
+import biswangan from "../assets/img/maps/biswangan.jpg";import gatub from "../assets/img/maps/gatub.jpg";
 import lukuan from "../assets/img/maps/lukuan.jpg";
 import tubod from "../assets/img/maps/tubod.jpg";
-
+import floodIcon from "../assets/img/floodIcon.png";
+import earthQuakeIcon from "../assets/img/earthQuakeIcon.png";
+import landslideIcon from "../assets/img/landslideIcon.png";
 const maps = [
 	{ id: 1, location: "Biswangan", map: biswangan },
 	{ id: 2, location: "Gatub", map: gatub },
@@ -10,4 +11,25 @@ const maps = [
 	{ id: 4, location: "Tubod", map: tubod },
 ];
 
-export { maps };
+const disasterTypes = [
+	{
+		id: "flood",
+		value: "Flood Alert",
+		label: "Flood",
+		icon: floodIcon,
+	},
+	{
+		id: "earthQuake",
+		value: "Earthquake Alert",
+		label: "Earthquake",
+		icon: earthQuakeIcon,
+	},
+	{
+		id: "landSlide",
+		value: "Landslide Alert",
+		label: "Landslide",
+		icon: landslideIcon,
+	},
+];
+
+export { maps, disasterTypes };

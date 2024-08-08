@@ -4,9 +4,9 @@ import Login from "./routes/Login";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Register from "./routes/Register";
 import NotFound from "./components/NotFound";
-import ProtectedRoute from "./components/ProtectedRoute";
 import Homepage from "./routes/Homepage";
 import ResidentDashboard from "./routes/ResidentDashboard";
+import HazardMap from "./components/HazardMap";
 
 function Logout() {
 	localStorage.clear();
@@ -68,6 +68,10 @@ function App() {
 							path="/resident-dashboard"
 							element={<ResidentDashboard />}
 						/>
+						<Route
+							path="/hazard-map"
+							element={<HazardMap />}
+						/>{" "}
 						<Route
 							path="*"
 							element={<NotFound />}
