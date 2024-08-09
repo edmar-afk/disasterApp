@@ -1,9 +1,10 @@
-/* eslint-disable react/prop-types */ import { useState } from "react";import reportMap from "../assets/img/maps/reportMap.png";
-import { disasterTypes } from "../assets/maps";
+/* eslint-disable react/prop-types */import { useState } from "react";import reportMap from "../assets/img/maps/reportMap.png";import { disasterTypes } from "../assets/maps";
 import Button from "@mui/material/Button";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import api from "../assets/api";
+
 function Report({ onCancel }) {
 	const [selectedDisaster, setSelectedDisaster] = useState("");
 	const [selectedBarangay, setSelectedBarangay] = useState("Barangay Biswangan Area");
@@ -13,7 +14,6 @@ function Report({ onCancel }) {
 
 	const handleChange = (event) => {
 		const newText = event.target.value;
-		// Update the text state only if length is less than or equal to maxLength
 		if (newText.length <= maxLength) {
 			setText(newText);
 		}
@@ -52,6 +52,36 @@ function Report({ onCancel }) {
 		}
 	};
 
+	const handleSubmit = async (event) => {
+		event.preventDefault(); // Prevent default form submission
+
+		const alertData = {
+			alert_type: selectedDisaster,
+			location: selectedBarangay,
+			description: text,
+		};
+
+		try {
+			await api.post("/api/create-alert/", alertData, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			alert("Alert submitted successfully!");
+
+			// Send a message to Flutter
+			if (window.flutter_inappwebview) {
+				window.flutter_inappwebview.callHandler("notifyApp", "Alert submitted successfully!");
+			}
+
+			// Optionally, you can call onCancel or reset the form
+			onCancel();
+		} catch (error) {
+			console.error("There was an error submitting the alert!", error);
+			alert("Error submitting alert.");
+		}
+	};
+
 	return (
 		<>
 			<div className="relative">
@@ -78,7 +108,7 @@ function Report({ onCancel }) {
 
 			<div>
 				<form
-					action=""
+					onSubmit={handleSubmit}
 					className="mt-2">
 					<p className="ml-4 pt-4 text-xs mb-2">Select Barangay</p>
 					<ul className="flex flex-col justify-evenly mx-8 mb-6">
@@ -86,8 +116,9 @@ function Report({ onCancel }) {
 							id="barangay"
 							name="barangay"
 							className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-							onChange={handleBarangayChange}>
-							<option defaultValue="Barangay Biswangan Area">Biswangan</option>
+							onChange={handleBarangayChange}
+							value={selectedBarangay}>
+							<option value="Barangay Biswangan Area">Biswangan</option>
 							<option value="Barangay Gatub Area">Gatub</option>
 							<option value="Barangay Lukuan Area">Lukuan</option>
 							<option value="Barangay Tubod Area">Tubod</option>
@@ -128,6 +159,7 @@ function Report({ onCancel }) {
 						<p className="pt-6 text-xs mb-2">Describe the Situation/Precaution</p>
 						<textarea
 							id="message"
+							name="description"
 							rows="4"
 							className={`p-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border`}
 							placeholder={`Max ${maxLength} characters`}
@@ -138,22 +170,21 @@ function Report({ onCancel }) {
 						</p>
 					</div>
 					<div className="flex justify-center space-x-2 mt-4">
-						<div className="flex justify-center space-x-2 mt-4">
-							<Button
-								variant="contained"
-								className="bg-blue-500 hover:bg-blue-600 text-white">
-								<NotificationsActiveIcon className="mr-1" />
-								Notify Residents
-							</Button>
-							<Button
-								variant="contained"
-								color="error"
-								className="text-white"
-								onClick={onCancel}>
-								<CancelIcon className="mr-1" />
-								Cancel
-							</Button>
-						</div>
+						<Button
+							variant="contained"
+							className="bg-blue-500 hover:bg-blue-600 text-white"
+							type="submit">
+							<NotificationsActiveIcon className="mr-1" />
+							Notify Residents
+						</Button>
+						<Button
+							variant="contained"
+							color="error"
+							className="text-white"
+							onClick={onCancel}>
+							<CancelIcon className="mr-1" />
+							Cancel
+						</Button>
 					</div>
 				</form>
 			</div>

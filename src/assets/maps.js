@@ -14,19 +14,19 @@ const maps = [
 const disasterTypes = [
 	{
 		id: "flood",
-		value: "Flood Alert",
+		value: "Flood Warning",
 		label: "Flood",
 		icon: floodIcon,
 	},
 	{
 		id: "earthQuake",
-		value: "Earthquake Alert",
+		value: "Earthquake Warning",
 		label: "Earthquake",
 		icon: earthQuakeIcon,
 	},
 	{
 		id: "landSlide",
-		value: "Landslide Alert",
+		value: "Landslide Warning",
 		label: "Landslide",
 		icon: landslideIcon,
 	},
