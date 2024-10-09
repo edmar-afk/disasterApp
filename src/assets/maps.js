@@ -1,6 +1,7 @@
-import biswangan from "../assets/img/maps/biswangan.jpg";import gatub from "../assets/img/maps/gatub.jpg";
-import lukuan from "../assets/img/maps/lukuan.jpg";
-import tubod from "../assets/img/maps/tubod.jpg";
+import biswangan from "../assets/img/map/Biswangan.png";
+import gatub from "../assets/img/map/Gatub.png";
+import lukuan from "../assets/img/map/Lukuan.png";
+import tubod from "../assets/img/map/Tubod.png";
 import floodIcon from "../assets/img/floodIcon.png";
 import earthQuakeIcon from "../assets/img/earthQuakeIcon.png";
 import landslideIcon from "../assets/img/landslideIcon.png";

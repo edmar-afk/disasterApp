@@ -1,4 +1,5 @@
-import { useState } from "react";import { maps } from "../../assets/maps";
+import { useState } from "react";
+import { maps } from "../../assets/maps";
 import MapModal from "../residents/MapModal";
 
 function Maps() {
@@ -28,11 +29,11 @@ function Maps() {
 						<div
 							onClick={() => openModal(mapItem)}
 							key={mapItem.id}
-							className="relative mx-2 my-2 w-36">
+							className="relative mx-2 my-2 w-36 h-48 flex flex-col items-center">
 							<img
 								src={mapItem.map}
 								alt={mapItem.location}
-								className="w-full h-fit shadow-2xl"
+								className="w-full h-40 object-cover shadow-2xl"
 							/>
 							<p className="text-xs text-center mt-1">{mapItem.location}</p>
 						</div>

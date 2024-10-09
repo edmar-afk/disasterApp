@@ -4,7 +4,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import BottomNav from "./BottomNav";
-import hazardMap from "../assets/img/maps/hazardmap.jpg";
+import hazardMap from "../assets/img/map/lakewood.png";
 import Report from "./Report";
 
 function HazardMap() {

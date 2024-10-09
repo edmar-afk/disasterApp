@@ -1,19 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import reportMap from "../assets/img/maps/reportMap.png";
+import reportMap from "../assets/img/maps/reportMap.png"; // Default map or placeholder
 import { disasterTypes } from "../assets/maps";
 import Button from "@mui/material/Button";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CancelIcon from "@mui/icons-material/Cancel";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import api from "../assets/api";
+import biswanganMap from "../assets/img/map/Biswangan.png";
+import lukuan from "../assets/img/map/Lukuan.png";
+import Gatub from "../assets/img/map/Gatub.png";
+import tubod from "../assets/img/map/Tubod.png";
 
 function Report({ onCancel }) {
 	const [selectedDisaster, setSelectedDisaster] = useState("");
 	const [selectedBarangay, setSelectedBarangay] = useState("Barangay Biswangan Area");
-	const [alertPosition, setAlertPosition] = useState({ top: "80px", left: "150px" });
 	const [text, setText] = useState("");
-	const [image, setImage] = useState(null); // State to hold the image
 	const maxLength = 250;
 
 	const handleChange = (event) => {
@@ -21,10 +22,6 @@ function Report({ onCancel }) {
 		if (newText.length <= maxLength) {
 			setText(newText);
 		}
-	};
-
-	const handleImageChange = (event) => {
-		setImage(event.target.files[0]); // Store the uploaded image file
 	};
 
 	const getTextColor = () => {
@@ -41,41 +38,21 @@ function Report({ onCancel }) {
 	};
 
 	const handleBarangayChange = (event) => {
-		const barangay = event.target.value;
-		setSelectedBarangay(barangay);
-
-		switch (barangay) {
-			case "Barangay Gatub Area":
-				setAlertPosition({ top: "100px", left: "200px" });
-				break;
-			case "Barangay Lukuan Area":
-				setAlertPosition({ top: "140px", left: "120px" });
-				break;
-			case "Barangay Tubod Area":
-				setAlertPosition({ top: "180px", left: "200px" });
-				break;
-			default:
-				setAlertPosition({ top: "80px", left: "150px" });
-				break;
-		}
+		setSelectedBarangay(event.target.value);
 	};
 
 	const handleSubmit = async (event) => {
-		event.preventDefault(); // Prevent default form submission
+		event.preventDefault();
 
-		// Prepare form data with image
 		const formData = new FormData();
 		formData.append("alert_type", selectedDisaster);
 		formData.append("location", selectedBarangay);
 		formData.append("description", text);
-		if (image) {
-			formData.append("image", image); // Append the image file if it exists
-		}
 
 		try {
 			await api.post("/api/create-alert/", formData, {
 				headers: {
-					"Content-Type": "multipart/form-data", // Use multipart for file upload
+					"Content-Type": "multipart/form-data",
 				},
 			});
 			alert("Alert submitted successfully!");
@@ -85,30 +62,38 @@ function Report({ onCancel }) {
 		}
 	};
 
+	const getBarangayMap = () => {
+		switch (selectedBarangay) {
+			case "Barangay Biswangan Area":
+				return biswanganMap;
+			case "Barangay Gatub Area":
+				return Gatub;
+			case "Barangay Lukuan Area":
+				return lukuan;
+			case "Barangay Tubod Area":
+				return tubod;
+			default:
+				return reportMap; // Default or fallback map
+		}
+	};
+
 	return (
 		<>
 			<div className="relative">
 				<img
-					src={reportMap}
+					src={getBarangayMap()} // Dynamically get the map based on selected barangay
 					alt="Report Map"
 					className="w-full"
 				/>
-				<p className="absolute bottom-12 left-2 font-bold text-red-700">
+			</div>
+			<div className="flex flex-col p-4">
+				<p className="font-bold text-red-700">
 					{selectedDisaster || "Please select Alert Type"}
 				</p>
-				<p className="absolute text-xs bottom-8 left-2 font-bold text-red-700">
+				<p className="font-bold text-red-700">
 					{selectedBarangay || "Barangay Biswangan Area"}
 				</p>
-
-				<div className="alertBarangay">
-					<div
-						className="absolute bg-red-400 p-2 rounded-full custom-ping"
-						style={{ top: alertPosition.top, left: alertPosition.left }}>
-						<ErrorOutlineIcon className="text-white" />
-					</div>
-				</div>
 			</div>
-
 			<div>
 				<form
 					onSubmit={handleSubmit}
@@ -127,6 +112,7 @@ function Report({ onCancel }) {
 							<option value="Barangay Tubod Area">Tubod</option>
 						</select>
 					</ul>
+
 					<p className="ml-4 pt-4 text-xs">Select Disaster Type</p>
 					<ul className="flex flex-row justify-evenly mx-8">
 						{disasterTypes.map(({ id, value, label, icon }) => (
@@ -169,15 +155,6 @@ function Report({ onCancel }) {
 						<p className={`text-xs ${getTextColor()}`}>
 							{remainingCharacters}/{maxLength}
 						</p>
-					</div>
-
-					<div className="mx-4 mt-4">
-						<p className="text-xs mb-2">Upload Image</p>
-						<input
-							type="file"
-							accept="image/*"
-							onChange={handleImageChange}
-						/>
 					</div>
 
 					<div className="flex justify-center space-x-2 mt-4">
