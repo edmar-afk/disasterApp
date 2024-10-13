@@ -125,8 +125,8 @@ const Login = () => {
 									fullWidth
 									className="mb-4 bg-transparent"
 									name="username"
-									label="Your Mobile Number"
-									type="number"
+									label="Your Email"
+									type="email"
 									id="email"
 									autoComplete="off"
 								/>

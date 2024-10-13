@@ -34,7 +34,7 @@ function Banner() {
 				}
 			} catch (error) {
 				console.error("Error fetching location:", error);
-				setError("Error fetching location");
+				setError("");
 			} finally {
 				setLoading(false);
 			}
@@ -123,7 +123,7 @@ function Banner() {
 					transition={{ duration: 1 }} // Adjust the duration as needed
 				/>
 			</div>
-			<p className="mt-4 mb-1 mx-4 text-xs text-brown-300">Current Address</p>
+			<p className="mt-4 mb-1 mx-4 text-xs text-brown-300">System Address</p>
 			<div className="mx-4 flex flex-row justify-between items-center">
 				<div className="flex flex-row">
 					<div className="bg-brown-400 p-2 rounded-full text-white flex flex-row items-center w-fit px-4">
@@ -134,12 +134,12 @@ function Banner() {
 							) : (
 								<>
 									{error && <p>{error}</p>}
-									{location ? <p>Barangay {location}</p> : <p>No Location Selected</p>}
+									{location ? <p>Barangay {location}</p> : <p>Lakewood Zamboanga del Sur</p>}
 									{/* Other components and elements */}
 								</>
 							)}
 						</div>
-						<Menu
+						{/* <Menu
 							id="demo-positioned-menu"
 							aria-labelledby="demo-positioned-button"
 							anchorEl={anchorEl}
@@ -157,18 +157,18 @@ function Banner() {
 							<MenuItem onClick={() => handleMenuItemClick("Gatub")}>Gatub</MenuItem>
 							<MenuItem onClick={() => handleMenuItemClick("Lukuan")}>Lukuan</MenuItem>
 							<MenuItem onClick={() => handleMenuItemClick("Tubod")}>Tubod</MenuItem>
-						</Menu>
+						</Menu> */}
 					</div>
-					<div className="flex flex-row items-center ml-2 text-brown-800">
+					{/* <div className="flex flex-row items-center ml-2 text-brown-800">
 						<EditLocationAltOutlinedIcon fontSize="small" />
 						<p
 							onClick={handleClick}
 							className="text-xs">
 							Change
 						</p>
-					</div>
+					</div> */}
 				</div>
-				<div className="flex justify-end">
+				{/* <div className="flex justify-end">
 					<Tooltip
 						arrow
 						placement="left"
@@ -192,7 +192,7 @@ function Banner() {
 							<InfoOutlinedIcon />
 						</p>
 					</Tooltip>
-				</div>
+				</div> */}
 			</div>
 		</>
 	);

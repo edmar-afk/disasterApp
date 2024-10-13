@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../assets/api";
 import disasterIcon from "../assets/img/logo/MDRRMOlogo.png";
 import Swal from "sweetalert2";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
+
 function Register() {
 	const [firstName, setFirstName] = useState("");
-	const [mobileNum, setMobileNum] = useState("");
+	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [password2, setPassword2] = useState("");
 	const [error, setError] = useState("");
@@ -23,20 +25,20 @@ function Register() {
 		}
 	};
 
-	// Function to validate mobile number
-	const validateMobileNum = (value) => {
-		const regex = /^09\d{9}$/;
+	// Function to validate email
+	const validateEmail = (value) => {
+		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		if (!regex.test(value)) {
-			setError("Please enter an 11-digit number starting with '09'.");
+			setError("Please enter a valid email address.");
 		} else {
-			setError((prevError) => (prevError !== "Please enter an 11-digit number starting with '09'." ? prevError : ""));
+			setError((prevError) => (prevError !== "Please enter a valid email address." ? prevError : ""));
 		}
 	};
 
-	const handleMobileNumChange = (e) => {
+	const handleEmailChange = (e) => {
 		const value = e.target.value;
-		setMobileNum(value);
-		validateMobileNum(value);
+		setEmail(value);
+		validateEmail(value);
 	};
 
 	const handlePasswordChange = (e) => {
@@ -51,12 +53,13 @@ function Register() {
 		checkPasswordsMatch();
 
 		// Check if all required fields are filled
-		if (firstName && mobileNum && password && password2 && !error) {
+		if (firstName && email && password && password2 && !error) {
 			setCanSubmit(true);
 		} else {
 			setCanSubmit(false);
 		}
-	}, [firstName, mobileNum, password, password2, error]);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [firstName, email, password, password2, error]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -66,15 +69,14 @@ function Register() {
 		try {
 			const res = await api.post("/api/register/", {
 				first_name: firstName,
-				username: mobileNum,
-				mobile_num: mobileNum,
+				username: email, // Use email as username
+				email: email,
 				password: password,
 				password2: password2,
 			});
 
 			if (res.status === 201) {
 				// Close the SweetAlert2 loading spinner
-
 				// Navigate to login page with state
 				navigate("/login", { state: { successMessage: "You have been registered successfully." } });
 			} else {
@@ -124,7 +126,7 @@ function Register() {
 									<img
 										src={disasterIcon}
 										className="w-40"
-										alt=""
+										alt="Disaster Icon"
 									/>
 									<p className="text-gray-800 font-bold text-4xl">Register</p>
 								</div>
@@ -146,19 +148,16 @@ function Register() {
 							<div className="mt-2">
 								<div className="relative flex flex-col items-center">
 									<input
-										type="text"
-										value={mobileNum}
-										onChange={handleMobileNumChange}
+										type="email"
+										value={email}
+										onChange={handleEmailChange}
 										required
 										className={`w-full text-sm text-gray-800 border px-4 py-3 rounded-md outline-blue-600 ${
-											error.includes("Please enter an 11-digit number starting with '09'.")
-												? "border-red-500"
-												: "border-gray-300"
+											error.includes("Please enter a valid email address.") ? "border-red-500" : "border-gray-300"
 										}`}
-										placeholder="Mobile Number"
-										maxLength="11"
+										placeholder="Email"
 									/>
-									{error && error.includes("Please enter an 11-digit number starting with '09'.") && (
+									{error && error.includes("Please enter a valid email address.") && (
 										<p className="text-red-500 text-sm mt-2">{error}</p>
 									)}
 								</div>
@@ -190,7 +189,7 @@ function Register() {
 								</div>
 							</div>
 
-							{error && !error.includes("Please enter an 11-digit number starting with '09'.") && (
+							{error && !error.includes("Please enter a valid email address.") && (
 								<p className="text-red-500 mt-2 text-xs">{error}</p>
 							)}
 

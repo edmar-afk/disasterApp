@@ -54,7 +54,7 @@ function App() {
 					<Routes>
 						<Route
 							path="/"
-							element={<Homepage />}
+							element={<ResidentDashboard />}
 						/>
 						<Route
 							path="/register"
