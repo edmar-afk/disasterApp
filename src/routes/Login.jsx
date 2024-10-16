@@ -175,7 +175,7 @@ const Login = () => {
 								initial={{ scale: 0 }}
 								animate={{ scale: 1 }}
 								transition={{ type: "spring", stiffness: 160, damping: 30 }}>
-								<Grid
+								{/* <Grid
 									container
 									className="mt-2">
 									Don't Have an account?
@@ -187,7 +187,7 @@ const Login = () => {
 											Register here
 										</Link>
 									</Grid>
-								</Grid>
+								</Grid> */}
 							</motion.div>
 						</form>
 					</Grid>

@@ -1,6 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 import landslide from "../../assets/img/landslideIcon.png";
 import earthQuake from "../../assets/img/earthQuakeIcon.png";
 import flood from "../../assets/img/floodIcon.png";
+import { Link } from "react-router-dom";
 
 function ReportCategory() {
 	return (
@@ -11,30 +13,30 @@ function ReportCategory() {
 					Here's the list of potential disasters in Lakewood
 				</p>
 				<div className="flex flex-row justify-evenly flex-wrap mt-6">
-					<div className="flex flex-col items-center">
+					<Link to={'/landslide'} className="flex flex-col items-center">
 						<img
 							src={landslide}
 							className="w-12"
 							alt=""
 						/>
 						<p className="text-xs">landslide</p>
-					</div>
-					<div className="flex flex-col items-center">
+					</Link>
+					<Link to={'/flood'} className="flex flex-col items-center">
 						<img
 							src={flood}
 							className="w-12"
 							alt=""
 						/>
 						<p className="text-xs">Flood</p>
-					</div>
-					<div className="flex flex-col items-center">
+					</Link>
+					<Link to={'/earthquake'} className="flex flex-col items-center">
 						<img
 							src={earthQuake}
 							className="w-12"
 							alt=""
 						/>
 						<p className="text-xs">Earthquake</p>
-					</div>
+					</Link>
 				</div>
 			</div>
 		</>

@@ -5,6 +5,7 @@ import ReportCategory from "../components/residents/ReportCategory";
 import Footer from "../components/residents/Footer";
 import Maps from "../components/residents/Maps";
 import BottomNav from "../components/BottomNav";
+import Evacuations from "../components/Evacuations";
 
 function ResidentDashboard() {
 	const userData = JSON.parse(localStorage.getItem("userData")) || null; // Default to null if empty
@@ -16,6 +17,7 @@ function ResidentDashboard() {
 			<Warning />
 			<ReportCategory />
 			<Maps />
+			<Evacuations/>
 			<Footer />
 			{userData && userData.is_superuser && <BottomNav />} {/* Check if userData exists and is_superuser */}
 		</div>

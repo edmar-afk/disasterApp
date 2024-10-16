@@ -4,9 +4,12 @@ import Login from "./routes/Login";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Register from "./routes/Register";
 import NotFound from "./components/NotFound";
-import Homepage from "./routes/Homepage";
 import ResidentDashboard from "./routes/ResidentDashboard";
 import HazardMap from "./components/HazardMap";
+import LandslidePrep from "./components/preparedness/LandslidePrep";
+import FloodPrep from "./components/preparedness/FloodPrep";
+import EarthQuakePrep from "./components/preparedness/EarthQuakePrep";
+
 
 function Logout() {
 	localStorage.clear();
@@ -63,6 +66,18 @@ function App() {
 						<Route
 							path="/login"
 							element={<Login />}
+						/>
+						<Route
+							path="/landslide"
+							element={<LandslidePrep />}
+						/>
+						<Route
+							path="/flood"
+							element={<FloodPrep />}
+						/>
+						<Route
+							path="/earthquake"
+							element={<EarthQuakePrep />}
 						/>
 						<Route
 							path="/resident-dashboard"
