@@ -9,6 +9,7 @@ import HazardMap from "./components/HazardMap";
 import LandslidePrep from "./components/preparedness/LandslidePrep";
 import FloodPrep from "./components/preparedness/FloodPrep";
 import EarthQuakePrep from "./components/preparedness/EarthQuakePrep";
+import FacebookIframe from "./components/residents/FacebookIframe";
 
 
 function Logout() {
@@ -87,6 +88,10 @@ function App() {
 							path="/hazard-map"
 							element={<HazardMap />}
 						/>{" "}
+						<Route
+							path="mdrrmoSOS"
+							element={<FacebookIframe />}
+						/>
 						<Route
 							path="*"
 							element={<NotFound />}
