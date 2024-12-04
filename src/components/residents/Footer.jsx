@@ -4,16 +4,10 @@ import SosIcon from "@mui/icons-material/Sos";
 function Footer() {
 	// Function to handle Facebook redirection
 	const handleFacebookRedirect = () => {
-		const fbAppUrl = "fb://profile/100071365517204"; // Replace with your profile ID
 		const fbWebUrl = "https://web.facebook.com/profile.php?id=100071365517204&_rdc=1&_rdr";
 
-		// Try to open the Facebook app
-		window.location.href = fbAppUrl;
-
-		// Fallback to the web URL if the app is not installed
-		setTimeout(() => {
-			window.location.href = fbWebUrl;
-		}, 1000); // Adjust delay as needed
+		// Open the Facebook web URL in the browser
+		window.open(fbWebUrl, "_blank"); // Opens in a new tab or browser
 	};
 
 	return (
