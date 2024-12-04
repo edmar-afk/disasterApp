@@ -2,12 +2,18 @@ import PhonelinkRingIcon from "@mui/icons-material/PhonelinkRing";
 import SosIcon from "@mui/icons-material/Sos";
 
 function Footer() {
-	// Function to handle the Facebook profile redirection
+	// Function to handle Facebook redirection
 	const handleFacebookRedirect = () => {
+		const fbAppUrl = "fb://profile/100071365517204"; // Replace with your profile ID
 		const fbWebUrl = "https://web.facebook.com/profile.php?id=100071365517204&_rdc=1&_rdr";
 
-		// Redirect to the web version since WebView may not support custom schemes
-		window.location.href = fbWebUrl;
+		// Try to open the Facebook app
+		window.location.href = fbAppUrl;
+
+		// Fallback to the web URL if the app is not installed
+		setTimeout(() => {
+			window.location.href = fbWebUrl;
+		}, 1000); // Adjust delay as needed
 	};
 
 	return (
@@ -28,7 +34,7 @@ function Footer() {
 						<p className="text-left text-xs">
 							Please avoid doing prank calls. Our officials are working hard to serve you.
 						</p>
-						{/* Facebook profile link */}
+						{/* Facebook Profile link */}
 						<p
 							className="border-2 border-red-50 text-red-50 rounded-full w-fit px-8 py-1.5 mt-2 text-xs flex items-center cursor-pointer"
 							onClick={handleFacebookRedirect}>
