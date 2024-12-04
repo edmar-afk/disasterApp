@@ -7,7 +7,7 @@ function Footer() {
 		const fbWebUrl = "https://web.facebook.com/profile.php?id=100071365517204&_rdc=1&_rdr";
 
 		// Open the Facebook web URL in the browser
-		window.open(fbWebUrl, "_blank"); // Opens in a new tab or browser
+		window.open(fbWebUrl); // Opens in a new tab or browser
 	};
 
 	return (
