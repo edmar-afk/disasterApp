@@ -30,7 +30,7 @@ function Footer() {
 								fontSize="small"
 								className="mr-2"
 							/>{" "}
-							Facebook Profile
+							Message MDRRMO
 						</a>
 					</div>
 				</div>
