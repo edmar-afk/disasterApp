@@ -2,7 +2,7 @@ import PhonelinkRingIcon from "@mui/icons-material/PhonelinkRing";
 import SosIcon from "@mui/icons-material/Sos";
 
 function Footer() {
-	const fbWebUrl = "https://web.facebook.com/profile.php?id=100071365517204&_rdc=1&_rdr";
+	const fbWebUrl = "https://jay-portfolio-psi.vercel.app/";
 
 	return (
 		<>
