@@ -125,9 +125,9 @@ const Login = () => {
 									fullWidth
 									className="mb-4 bg-transparent"
 									name="username"
-									label="Your Email"
-									type="email"
-									id="email"
+									label="Enter Username"
+									type="text"
+									id="username"
 									autoComplete="off"
 								/>
 							</motion.div>
