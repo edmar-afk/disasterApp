@@ -6,8 +6,8 @@ const manifestForPlugin = {
 	registerType: "prompt",
 	includeAssets: ["favicon.ico", "apple-touc-icon.png"],
 	manifest: {
-		name: "Weather app",
-		short_name: "Weather app",
+		name: "DISASTER RISK APP",
+		short_name: "DISASTER RISK APP",
 		description: "An app that can show the weather forecast for your city.",
 		icons: [
 			{
